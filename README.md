@@ -1,5 +1,3 @@
-@geist, is derived from the German word for "spirit" or "ghost", uses OpenAI ChatML to configure the ChatGPT API to respond to prompts in the voice of the creator.
-
 - _geist.py_: loads OpenAI ChatML for a geist, sets the user context and responds.
 - _nietzsche.chatml_: prompt for @nietzsche.
 - _siddaratha.chatml_: prompt for @siddaratha.
