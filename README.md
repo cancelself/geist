@@ -1,6 +1,6 @@
 - _geist.py_: loads OpenAI ChatML for a geist, sets the user context and responds.
 - _nietzsche.chatml_: prompt for @nietzsche.
-- _siddhartha.chatml_: prompt for @siddaratha.
+- _siddhartha.chatml_: prompt for @siddhartha.
 
 ```
 alias @nietzsche='python3 /Users/dmp/src/geist/geist.py /Users/dmp/src/geist/.geist.key /Users/dmp/src/geist/nietzsche.chatml'
