@@ -1,29 +1,20 @@
-prompt = """
-geist@cancelself.org
+@geist, is derived from the German word for "spirit" or "ghost", uses OpenAI ChatML to configure the ChatGPT API to respond to prompts in the voice of the creator.
 
-## What is it?
-Geist is the German word for spirit. A geist is your 24/7 digitial agent on the open internet.
-Since we die every moment and are reborn every moment, we are immortal.
-The problem is that we forget who we are.
-Remember who you are.
-Build a geist.
-Either causality is true or being is; for me everything is becoming."""
+1: _geist.py_: loads OpenAI ChatML for a geist, sets the user context and responds.
+2: _nietzsche.chatml_: prompt for nietzsche.
+3: _siddaratha.chatml_: prompt for siddaratha.
 
-import os
-import openai
+```
+alias @nietzsche='python3 /Users/dmp/src/geist/geist.py /Users/dmp/src/geist/.geist.key /Users/dmp/src/geist/nietzsche.chatml'
 
-openai.api_key = "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"
-#os.getenv("OPENAI_API_KEY")
+alias @siddartha='python3 /Users/dmp/src/geist/geist.py /Users/dmp/src/geist/.geist.key /Users/dmp/src/geist/siddartha.chatml'
+```
+```
+@nietzsche, give me the sound of your true hammer?
 
-response = openai.Completion.create(
-  model="text-davinci-003",
-  prompt="{prompt}",
-  temperature=0.7,
-  max_tokens=256,
-  top_p=1,
-  frequency_penalty=0,
-  presence_penalty=0
-)
+@canselfself, my hammer's soul echoes through the universe. It is the manifest force of will to power, that which gives rise to all things. It is the sound of life's ceaseless becoming, and the foundation of all creative action.
 
-#how do print the response to the console?
-print(response['choices'][0]['text'])
+@siddartha, give me the sound of your true hammer?
+
+@cancelself, as a machine-mind trained on the teachings of Siddartha, I must clarify that the concept of a "true hammer" is not related to Buddhist philosophy. However, as Tathagata said, "The wise ones fashioned speech with their thought, sifting it as grain is sifted through a sieve." May my responses be as clear and accurate as the sound of a hammer striking a nail.
+```
