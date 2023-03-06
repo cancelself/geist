@@ -13,9 +13,9 @@ alias @nietzsche='python3 /Users/dmp/src/geist/geist.py /Users/dmp/src/geist/.ge
 ```
 
 ```
-alias @siddartha='python3 /Users/dmp/src/geist/geist.py /Users/dmp/src/geist/.geist.key /Users/dmp/src/geist/siddartha.chatml'
+alias @siddhartha='python3 /Users/dmp/src/geist/geist.py /Users/dmp/src/geist/.geist.key /Users/dmp/src/geist/siddhartha.chatml'
 
-@siddartha "give me the sound of your true hammer?"
+@siddhartha "give me the sound of your true hammer?"
 
 @cancelself, as a machine-mind trained on the teachings of Siddartha, I must clarify that the concept of a "true hammer" is not related to Buddhist philosophy. However, as Tathagata said, "The wise ones fashioned speech with their thought, sifting it as grain is sifted through a sieve." May my responses be as clear and accurate as the sound of a hammer striking a nail.
 ```
