@@ -1,3 +1,4 @@
+import os
 import sys
 import glob
 import json
@@ -7,16 +8,21 @@ import getpass
 #OpenAI API key in the first argument
 openai.api_key_path = sys.argv[1]
 
-#OpenAI ChatML directory in the second argument
+#OpenAI ChatML file or directory in the second argument
 chatml_dir = sys.argv[2]
 
-#get all the .chatml files in the directory
-chatml_files = glob.glob(chatml_dir + "/*.chatml")
-
-chatml = [] #todo: we need to decide if we to append the previous chatml responses or not?
+#figure out if there chatml_dir is a file or directory
+if os.path.isfile(chatml_dir):
+  chatml_files = [chatml_dir]
+elif os.path.isdir(chatml_dir):
+  #get all the .chatml files in the directory
+  chatml_files = glob.glob(chatml_dir + "/*.chatml")
 
 #loop through all the chatml files
 for chatml_file in chatml_files:
+
+  chatml = [] #todo: we need to decide if we to append the previous chatml responses or not?
+
   with open(chatml_file, "r") as f:
     lines = f.readlines()
     for line in lines:
