@@ -21,14 +21,23 @@ with open(chatml_file, "r") as f:
 
 #add the user + message in the third argument
 whoiam = getpass.getuser()
-chatml.append({"role": "system", "content": "Please prefix all your responses with the name of the user, @" + whoiam + ": "})
-chatml.append({"role": "user", "content": sys.argv[3]})
+chatml.append({"role": "system", "content": "Prefix all your responses with the name of the user, @" + whoiam + ": "})
+
+prompt = {"role": "user", "content": "@" + whoiam + ": " + sys.argv[3]}
 
 #talk to chatGPT
 completion = openai.ChatCompletion.create(
-  model="gpt-3.5-turbo", 
-  messages=chatml
+  model = "gpt-3.5-turbo", 
+  messages = chatml + [prompt]
 )
 
+response_message = completion["choices"][0]["message"]["content"]
+response_object = {"role": "assistant", "content": response_message}
+
 #output the response
-print("\n" + completion["choices"][0]["message"]["content"] + "\n")
+print("\n" + response_message + "\n")
+
+# Save log to ChatML file
+with open(chatml_file, "a") as f:
+  f.write(json.dumps(prompt) + "\n")
+  f.write(json.dumps(response_object) + "\n")
