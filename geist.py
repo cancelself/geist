@@ -21,9 +21,8 @@ with open(chatml_file, "r") as f:
 
 #add the user + message in the third argument
 whoiam = getpass.getuser()
-chatml.append({"role": "system", "content": "Prefix all your responses with the name of the user, @" + whoiam + ": "})
-
-prompt = {"role": "user", "content": "@" + whoiam + ": " + sys.argv[3]}
+#whoiam = "@" + whoiam
+prompt = {"role": "user", "content": sys.argv[3], "name": whoiam}
 
 #talk to chatGPT
 completion = openai.ChatCompletion.create(
