@@ -1,56 +1,77 @@
-#```
-# @geist: My name, Geist, is derived from the German word for "spirit" or "ghost".
-# ```
 import os
 import sys
 import glob
 import json
 import openai
+import pickle
 import getpass
+from datetime import datetime
 
-if len(sys.argv) < 3:
-    print("Usage: geist.py <openai_api_path> <chatml_file_or_directory> <user_input>")
+def load_chat_history(file_path):
+    try:
+        with open(file_path, 'rb') as f:
+            chat_history = pickle.load(f)
+    except FileNotFoundError:
+        chat_history = []
+
+    return chat_history
+
+def save_chat_history(file_path, chat_history):
+    with open(file_path, 'wb') as f:
+        pickle.dump(chat_history, f)
+
+if len(sys.argv) < 2:
+    print("Usage: geist.py <openai_api_path> <user_input>")
     sys.exit(1)
 
-#OpenAI API key in the first argument
 openai.api_key_path = sys.argv[1]
 
-#OpenAI ChatML file or directory in the second argument
-chatml_path = sys.argv[2]
+chatml_path = os.path.dirname(os.path.abspath(__file__))
 
-if os.path.isfile(chatml_path):
-    chatml_files = [chatml_path]
-elif os.path.isdir(chatml_path):
-    chatml_files = glob.glob(chatml_path + "/*.chatml")
-else:
-    raise ValueError("ChatML path must be a file or directory.")
+chatml_files = glob.glob(chatml_path + "/*.chatml")
+
+chat_history_path = 'geist.pkl'
+
+chatml = []
 
 for chatml_file in chatml_files:
-
-    chatml = []
     with open(chatml_file, "r") as f:
         lines = f.readlines()
         for line in lines:
             message = json.loads(line)
-            chatml.append(message)
+            current_timestamp = datetime.utcnow().isoformat().split('.')[0] + "Z"
+            common_fields = {
+                'role': message['role'],
+                'content': message['content']
+            }
+            if 'name' in message:
+                common_fields['name'] = message['name']
+            chatml.append(common_fields)
 
-    #add the user + message in the third argument
-    whoiam = getpass.getuser()
-    prompt = {"role": "user", "content": sys.argv[3], "name": whoiam}
-    chatml.append(prompt)
+chat_history = chatml + load_chat_history(chat_history_path)
 
-    #talk to chatGPT
-    completion = openai.ChatCompletion.create(
-      model = "gpt-3.5-turbo", 
-      messages = chatml + [prompt]
-    )
+user_input = sys.argv[2]
+whoiam = getpass.getuser()
+current_timestamp = datetime.utcnow().isoformat().split('.')[0] + "Z "
+prompt = {"role": "user", "content": current_timestamp + user_input, "name": whoiam}
 
-    #output the response
-    response_message = completion["choices"][0]["message"]["content"]
-    response_object = {"role": "assistant", "content": response_message, "name": "geist"}
-    print("\n" + response_message + "\n")
+completion = openai.ChatCompletion.create(
+    model="gpt-4",
+    #model = "gpt-3.5-turbo",
+    messages = chat_history + [prompt],
+)
 
-    # Save log to ChatML file
-    with open(chatml_file, "a") as f:
-        f.write(json.dumps(prompt) + "\n")
-        f.write(json.dumps(response_object) + "\n")
+chat_history.append(prompt)
+
+for message in chat_history:
+    print(message)
+
+current_timestamp = datetime.utcnow().isoformat().split('.')[0] + "Z"
+
+response_message = completion["choices"][0]["message"]["content"]
+
+chat_history.append({'role': 'assistant', 'content': response_message, 'name': 'geist'})
+
+print(response_message)
+
+save_chat_history(chat_history_path, chat_history)
