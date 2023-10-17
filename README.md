@@ -1,4 +1,4 @@
-- _geist.py_: loads OpenAI ChatML for a geist, sets the user context and responds.
+- _geist.py_: loads OpenAI ChatML for your geist, sets the user context and responds.
 - _geist.chatml_: bootstrap chatml
 
 ```
