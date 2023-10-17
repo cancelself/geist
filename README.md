@@ -1,5 +1,6 @@
 - _geist.py_: loads OpenAI ChatML for your geist, sets the user context and responds.
-- _geist.chatml_: bootstrap chatml
+- _geist.chatml_: edit this file to add yourself.
+- .geist.key: your openai key.
 
 ```
 alias @geist='python3 /Users/dmp/src/geist/geist3.py /Users/dmp/src/geist/.geist.key'
