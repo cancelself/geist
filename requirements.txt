@@ -16,3 +16,4 @@ six @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot2/ActiveBuildR
 tqdm==4.65.0
 urllib3==1.26.15
 yarl==1.8.2
+docker==7.0.0
