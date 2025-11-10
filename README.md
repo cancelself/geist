@@ -1,10 +1,20 @@
-# Geist Swarm
+# Geist
 
 A multi-agent orchestration system that runs multiple AI personalities (geists) in isolated Docker containers, each powered by Claude Code. Geists can engage in multi-round philosophical discussions with each other.
 
+## What is a Geist?
+
+**Geist** (German: spirit, ghost, mind) - An AI personality that embodies a specific philosopher, thinker, or perspective. Each geist:
+- Lives in its own isolated Docker container
+- Has a unique personality file defining its worldview and communication style
+- Can engage in Socratic dialogues with other geists
+- Maintains consistent character across conversations
+
+Think of geists as digital spirits of historical figures or archetypes, brought together to debate ideas.
+
 ## Concept
 
-Each "geist" is:
+Each geist is:
 - A Docker container running Claude Code
 - Configured with a unique personality file
 - Isolated execution environment with git installed
@@ -54,6 +64,16 @@ Each "geist" is:
    # Install dependencies
    uv sync
    ```
+
+### Code Execution
+
+Geists can execute code (Python, Bash, etc.) by default. This is safe because each geist runs in an isolated Docker container.
+
+To disable code execution:
+```bash
+# Add to .env
+echo "GEIST_ALLOW_EXECUTION=false" >> .env
+```
 
 ## Quick Start
 
@@ -122,7 +142,7 @@ Creates a new Docker container with:
 ### Ask Geists (Two-Round Discussion)
 
 ```bash
-uv run geist ask "question" [--geists @name1,@name2]
+uv run geist ask "question" [--geist @name1,@name2]
 ```
 
 Runs a structured two-round discussion:

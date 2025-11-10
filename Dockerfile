@@ -15,7 +15,15 @@ RUN apt-get update && apt-get install -y \
     nano \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Claude Code CLI
+# Create a non-root user for running Claude Code
+RUN useradd -m -s /bin/bash geist && \
+    echo "geist ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Switch to non-root user for Claude Code installation
+USER geist
+WORKDIR /home/geist
+
+# Install Claude Code CLI as non-root user
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # Create a working directory

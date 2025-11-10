@@ -73,17 +73,20 @@ class GeistSwarm:
             self.client.images.get(SWARM_IMAGE)
         except docker.errors.ImageNotFound:
             print(f"Building Docker image: {SWARM_IMAGE}...")
+            print("This may take a minute on first run...")
             dockerfile_dir = Path(__file__).parent
-            try:
-                self.client.images.build(
-                    path=str(dockerfile_dir),
-                    tag=SWARM_IMAGE,
-                    rm=True
-                )
-                print(f"Successfully built image: {SWARM_IMAGE}")
-            except docker.errors.BuildError as e:
-                print(f"Error building Docker image: {e}")
+
+            # Use subprocess directly to avoid Docker SDK credential issues
+            import subprocess
+            result = subprocess.run(
+                ["docker", "build", "-t", SWARM_IMAGE, str(dockerfile_dir)],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                print(f"Error building image: {result.stderr}")
                 sys.exit(1)
+            print(f"✓ Successfully built image: {SWARM_IMAGE}")
 
     def ensure_shared_volume(self):
         """Create a shared Docker volume for inter-geist communication"""
@@ -242,6 +245,7 @@ class GeistSwarm:
                 tty=True,
                 stdin_open=True,
                 name=f"{CONTAINER_PREFIX}-{name[1:]}",
+                user="geist",  # Run as non-root user for security
                 working_dir="/workspace",
                 environment={
                     "ANTHROPIC_API_KEY": os.getenv("ANTHROPIC_API_KEY")
@@ -335,8 +339,16 @@ Respond as {name} would, staying true to their philosophy and communication styl
         # Use --print for non-interactive output
         # Escape single quotes in prompt
         escaped_prompt = prompt.replace("'", "'\\''")
+
+        # Build claude command with execution permissions
+        # Default to enabled since geists run in isolated Docker containers
+        claude_cmd = "~/.local/bin/claude --print"
+        if os.getenv("GEIST_ALLOW_EXECUTION", "true").lower() == "true":
+            # Bypass permission prompts - safe because each geist is in its own container
+            claude_cmd += " --permission-mode bypassPermissions"
+
         result = container.exec_run(
-            cmd=["bash", "-c", f"echo '{escaped_prompt}' | ~/.local/bin/claude --print"],
+            cmd=["bash", "-c", f"echo '{escaped_prompt}' | {claude_cmd}"],
             environment={"ANTHROPIC_API_KEY": os.getenv("ANTHROPIC_API_KEY")}
         )
 
