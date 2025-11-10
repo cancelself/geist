@@ -1,4 +1,4 @@
-# Geist Swarm
+# Geist
 
 A multi-agent orchestration system that runs multiple AI personalities (geists) in isolated Docker containers, each powered by Claude Code. Geists can engage in multi-round philosophical discussions with each other.
 
