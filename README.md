@@ -2,8 +2,6 @@
 
 Three AI personalities debate philosophical questions. Each runs Claude Code in its own Docker container.
 
-**Geist** (German: spirit, ghost, mind) - Think digital spirits of historical figures, brought together to argue.
-
 ## Quick Start
 
 ```bash
