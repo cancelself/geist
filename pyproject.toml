@@ -1,0 +1,20 @@
+[project]
+name = "geist"
+version = "0.1.0"
+description = "Multi-agent orchestration system running AI personalities in Docker containers"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "docker>=7.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+geist = "geist:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
