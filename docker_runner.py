@@ -18,7 +18,7 @@ from pathlib import Path
 
 IMAGE_NAME = "geist-runner"
 CONTAINER_PREFIX = "geist-container"
-STATE_FILE = Path.home() / ".geist_containers.json"
+STATE_FILE = Path(".geist_containers.json")
 
 
 class DockerRunner:

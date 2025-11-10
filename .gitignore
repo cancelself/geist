@@ -1,2 +1,18 @@
-
+# API keys and environment
 .geist.key
+.env
+
+# Runtime state files
+.geist_swarm.json
+.geist_conversations.json
+.geist_containers.json
+
+# User-generated conversations
+conversations/
+
+# System files
+.DS_Store
+
+# Python environment
+.venv/
+uv.lock
