@@ -1,0 +1,36 @@
+DEBATE TOPIC: Nietzsche's Relevance to the Age of Artificial Intelligence
+
+ARTICLE URL: https://cacm.acm.org/blogcacm/why-nietzsche-matters-in-the-age-of-artificial-intelligence/
+
+CONTEXT:
+This article by Shaoshan Liu (published in CACM, November 11, 2025) explores how Nietzsche's vision of the human as a value-creating, self-overcoming agent speaks powerfully to the psychological and cultural ruptures of the AI age.
+
+KEY THEMES FROM THE ARTICLE:
+- AI is causing not only technological disruption but a deeper existential crisis
+- Machine intelligence threatens to render human labor redundant
+- Interpersonal bonds may become hollow
+- Moral frameworks become opaque
+- Nietzsche's philosophy, forged during industrial modernity, offers crucial resources for navigating these dislocations
+
+YOUR TASK:
+1. First, try to fetch and read the full article using curl or wget:
+   - Try: curl -L "https://cacm.acm.org/blogcacm/why-nietzsche-matters-in-the-age-of-artificial-intelligence/"
+   - If that fails due to 403, work with the context provided above
+
+2. Respond to these questions from YOUR philosophical perspective:
+   a) Does the existential crisis posed by AI represent a genuine rupture in human self-understanding, or is it merely a continuation of older anxieties?
+
+   b) Can Nietzsche's concept of self-overcoming and value-creation remain meaningful when faced with artificial superintelligence?
+
+   c) What would Nietzsche's "Übermensch" look like in an age where machines can outthink humans in most domains?
+
+   d) Is the comparison between AI disruption and industrial modernity apt? What are the crucial differences?
+
+3. In your rebuttal round, directly engage with the other perspectives. Challenge their assumptions, point out blind spots, or build on their insights.
+
+INSTRUCTIONS FOR RUNNING THIS DEBATE:
+From the geist directory, run:
+  uv run geist ask "$(cat debate_nietzsche_ai.txt)"
+
+Or for specific geists:
+  uv run geist ask "$(cat debate_nietzsche_ai.txt)" --geist @dogen,@nietzsche,@sjobs
